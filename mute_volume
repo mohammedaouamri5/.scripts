@@ -4,7 +4,7 @@
 DEFAULT_SINK=$(pactl get-default-sink)
 
 # Check if the default sink is muted
-MUTE_STATE=$(< get-sink-mute $DEFAULT_SINK | awk '{print $2}')
+MUTE_STATE=$(pactl get-sink-mute $DEFAULT_SINK | awk '{print $2}')
 
 # Toggle mute state
 if [ "$MUTE_STATE" = "yes" ]; then
