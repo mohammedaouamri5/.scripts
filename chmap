@@ -1,3 +1,54 @@
 #!/bin/bash
 
-python3 $SCRIPTS/chmap.py
+# Define the maps (keyboard layouts)
+MAPS=("fr" "en")
+
+# Function to generate the content for the 'langage.conf' file
+use() {
+    local map=$1
+    echo "input {
+    kb_layout = $map
+}"
+}
+
+# Function to set the KEYMAP
+set_KEYMAP() {
+    local map=$1
+    local config_path="$HOME/.config/hypr/langage.conf"
+    local keymap_file="$HOME/.scripts/KEYMAP"
+
+    # Write the new keyboard layout to the config file
+    echo "$(use $map)" > "$config_path"
+
+    # Write the new keyboard layout to the KEYMAP file
+    echo "$map" > "$keymap_file"
+}
+
+# Function to change the keyboard layout (cycle through MAPS)
+chmap() {
+    local keymap_file="$HOME/.scripts/KEYMAP"
+
+    # Read the current KEYMAP
+    if [[ -f "$keymap_file" ]]; then
+        KEYMAP=$(cat "$keymap_file")
+    else
+        KEYMAP="fr"  # Default to "fr" if the file doesn't exist
+    fi
+
+    # Find the index of the current layout and get the next one
+    for i in "${!MAPS[@]}"; do
+        if [[ "${MAPS[$i]}" == "$KEYMAP" ]]; then
+            next_index=$(( (i + 1) % ${#MAPS[@]} ))
+            next_map="${MAPS[$next_index]}"
+            break
+        fi
+    done
+
+    echo "$next_map"
+
+    # Set the new KEYMAP
+    set_KEYMAP "$next_map"
+}
+
+# Call the function to change the map
+chmap
