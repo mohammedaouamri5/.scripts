@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define the maps (keyboard layouts)
-MAPS=("fr" "en")
+MAPS=("fr" "ara")
 
 # Function to generate the content for the 'langage.conf' file
 use() {
