@@ -1,5 +1,16 @@
 #!/usr/bin/env sh
 
+#  _________________________________________  
+# ( This script is not mine its meen wroted )
+# ( by                                      )
+# ( "git@github.com:Aire-One/gstatus.git"   )
+#  -----------------------------------------
+#         o   ^__^
+#          o  (oo)\_______
+#             (__)\       )\/\
+#                 ||----w |
+#                 ||     ||
+#
 # gstatus - An eye candy git status script.
 
 # Configuration:
