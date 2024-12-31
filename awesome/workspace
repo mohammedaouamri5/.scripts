@@ -1,0 +1,5 @@
+#!/bin/bash
+
+WORKSPACE=awesome-client "return screen[$1].selected_tag.index" | awk '{print $2}' | tr -d '[:space:]'
+
+echo "->$WORKSPACE<-"
