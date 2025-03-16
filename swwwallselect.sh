@@ -3,14 +3,10 @@
 
 #// set variables
 
-confDir="$HOME/.config"
-scrDir="$(dirname "$(realpath "$0")")" 
+scrDir="$(dirname "$(realpath "$0")")"
 source "${scrDir}/globalcontrol.sh"
 rofiConf="${confDir}/rofi/selector.rasi"
 
-echo $confDir
-echo $scrDir
-echo $rofiConf
 
 #// set rofi scaling
 
@@ -21,7 +17,9 @@ elem_border=$(( hypr_border * 3 ))
 
 #// scale for monitor
 
-mon_x_res=$(echo "local screen = require('awful').screen.focused(); local width = screen.geometry.width; local scale = screen.dpi / 96; local adjusted_width = math.floor(width * 100 / (scale * 100)); return adjusted_width" | awesome-client | awk '{print $2}' | tr -d '[:space:]') 
+mon_x_res=$(hyprctl -j monitors | jq '.[] | select(.focused==true) | .width')
+mon_scale=$(hyprctl -j monitors | jq '.[] | select(.focused==true) | .scale' | sed "s/\.//")
+mon_x_res=$(( mon_x_res * 100 / mon_scale ))
 
 
 #// generate config
@@ -38,10 +36,7 @@ currentWall="$(basename "$(readlink "${hydeThemeDir}/wall.set")")"
 wallPathArray=("${hydeThemeDir}")
 wallPathArray+=("${wallAddCustomPath[@]}")
 get_hashmap "${wallPathArray[@]}"
-
-
-
-rofiSel=$(parallel --link echo -en "\$(basename "{1}")"'\\x00icon\\x1f'"${thmbDir}"'/'"{2}"'.sqre\\n' ::: "${wallList[@]}" ::: "${wallHash[@]}" ) # | rofi -dmenu -theme-str "${r_scale}" -theme-str "${r_override}" -config "${rofiConf}" -select "${currentWall}")
+rofiSel=$(parallel --link echo -en "\$(basename "{1}")"'\\x00icon\\x1f'"${thmbDir}"'/'"{2}"'.sqre\\n' ::: "${wallList[@]}" ::: "${wallHash[@]}" | rofi -dmenu -theme-str "${r_scale}" -theme-str "${r_override}" -config "${rofiConf}" -select "${currentWall}")
 
 
 #// apply wallpaper
