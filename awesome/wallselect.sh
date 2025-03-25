@@ -60,7 +60,6 @@ rofiSel=$(parallel --link echo -en "\$(basename "{1}")"'\\x00icon\\x1f'"{2}"'\\n
 echo "You Chelected $rofiSel"
 #// apply wallpaper
 if [ ! -z "${rofiSel}" ] ; then
-    feh --bg-fill "$HOME/.wallpaper/$rofiSel"
-    notify-send -a "t1" -i "${thmbDir}/$(set_hash "${setWall}").sqre" " ${rofiSel}"
+    feh --bg-fill "$HOME/Pictures/wallpapers notify-send -a "t1" -i "${thmbDir}/$(set_hash "${setWall}").sqre" " ${rofiSel}""
 fi
 

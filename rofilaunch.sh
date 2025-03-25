@@ -40,6 +40,8 @@ i_override="configuration {icon-theme: \"${i_override}\";}"
 
 
 #// launch rofi
+echo "rofi -show "${r_mode}" -theme-str "${r_scale}" -theme-str "${r_override}" -theme-str "${i_override}" -config "${roconf}""
+
 
 rofi -show "${r_mode}" -theme-str "${r_scale}" -theme-str "${r_override}" -theme-str "${i_override}" -config "${roconf}"
 

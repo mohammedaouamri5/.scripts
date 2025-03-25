@@ -85,25 +85,7 @@ get_themes()
     fi
 }
 
-[ -f "${hydeConfDir}/hyde.conf" ] && source "${hydeConfDir}/hyde.conf"
 
-case "${enableWallDcol}" in
-    0|1|2|3) ;;
-    *) enableWallDcol=0 ;;
-esac
-
-if [ -z "${hydeTheme}" ] || [ ! -d "${hydeConfDir}/themes/${hydeTheme}" ] ; then
-    get_themes
-    hydeTheme="${thmList[0]}"
-fi
-
-export hydeTheme
-export hydeThemeDir="${hydeConfDir}/themes/${hydeTheme}"
-export wallbashDir="${hydeConfDir}/wallbash"
-export enableWallDcol
-
-
-#// hypr vars
 
 if printenv HYPRLAND_INSTANCE_SIGNATURE &> /dev/null; then
     export hypr_border="$(hyprctl -j getoption decoration:rounding | jq '.int')"
