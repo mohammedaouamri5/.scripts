@@ -1,14 +1,11 @@
 #!/bin/bash
 
 # Define the maps (keyboard layouts)
-MAPS=("fr" "ara")
-
+MAPS=("us" "ara")
 # Function to generate the content for the 'langage.conf' file
 use() {
     local map=$1
-    echo "input {
-    kb_layout = $map
-}"
+    echo "source = ~/.config/hypr/lang-$map.conf"
 }
 
 # Function to set the KEYMAP
@@ -32,7 +29,7 @@ chmap() {
     if [[ -f "$keymap_file" ]]; then
         KEYMAP=$(cat "$keymap_file")
     else
-        KEYMAP="fr"  # Default to "fr" if the file doesn't exist
+        KEYMAP="us"  # Default to "fr" if the file doesn't exist
     fi
 
     # Find the index of the current layout and get the next one
