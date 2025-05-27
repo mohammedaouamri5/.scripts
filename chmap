@@ -2,14 +2,23 @@
 
 # Define the maps (keyboard layouts)
 MAPS=("us" "ara")
+function run {
+    if ! pgrep $1 > /dev/null ;
+    then
+        $@&
+    fi
+}
 # Function to generate the content for the 'langage.conf' file
 use() {
     local map=$1
     echo "source = ~/.config/hypr/lang-$map.conf"
+    run "$HOME/.scripts/$map.sh"
+    notify-send $map
 }
 
 # Function to set the KEYMAP
 set_KEYMAP() {
+
     local map=$1
     local config_path="$HOME/.config/hypr/langage.conf"
     local keymap_file="$HOME/.scripts/KEYMAP"
