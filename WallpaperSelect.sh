@@ -131,12 +131,12 @@ wait $!
 
 sleep 1
 # Check if user selected a wallpaper
-sddm_sequoia="/usr/share/sddm/themes/sequoia_2"
-if [ -d "$sddm_sequoia" ]; then
+sddm_themes="/usr/share/sddm/themes"
+if [ -d "$sddm_themes" ]; then
 
       # Check if yad is running to avoid multiple yad notification
       if pidof yad > /dev/null; then
 	killall yad
       fi
-       cp -r $wallpaper_current "$sddm_sequoia/backgrounds/default"
+       cp -r $wallpaper_current "$sddm_themes/monokai/background.jpg"
 fi
