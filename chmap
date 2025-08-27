@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define the maps (keyboard layouts)
-MAPS=("us" "ara")
+MAPS=("us" "ara" "fr")
 function run {
     if ! pgrep $1 > /dev/null ;
     then

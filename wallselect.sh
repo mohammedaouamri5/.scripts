@@ -108,12 +108,14 @@ main() {
   done
 
   if [[ $pic_index -ne -1 ]]; then
+  echo "WOW => ${PICS[$pic_index]}"
     cp  "${PICS[$pic_index]}" ~/.THE-WALLPAPER
-    ~/.fehbg
+    feh --no-fehbg --bg-fill '/home/mohammedaouamri/.THE-WALLPAPER'
   else
     echo "Image not found."
     exit 1
   fi
+
 }
 
 # Check if rofi is already running
