@@ -86,11 +86,7 @@ get_themes()
 }
 
 
-
-:q
-kjKKKKKJJJJJJKKKKKKKJJKKKKJKJJJJJJJJKKJK
-HKKKJJJJJJJKKKKJ
-KJJKKKKJJJJqkja@sa@sa@sa@saf printenv HYPRLAND_INSTANCE_SIGNATURE &> /dev/null; then
+if printenv HYPRLAND_INSTANCE_SIGNATURE &> /dev/null; then
     export hypr_border="$(hyprctl -j getoption decoration:rounding | jq '.int')"
     export hypr_width="$(hyprctl -j getoption general:border_size | jq '.int')"
 fi
