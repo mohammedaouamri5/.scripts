@@ -1,0 +1,14 @@
+# Define a timestamp
+TS=$(date +%Y_%b_%d_%H:%M:%S)
+
+
+# Create a backup directory
+mkdir -p ~/nvim_backups/backup_$TS
+
+# Copy the 4 essential Neovim directories
+cp -rf ~/.config/nvim ~/nvim_backups/backup_$TS/config
+cp -rf ~/.local/share/nvim ~/nvim_backups/backup_$TS/share
+cp -rf ~/.local/state/nvim ~/nvim_backups/backup_$TS/state
+cp -rf ~/.cache/nvim ~/nvim_backups/backup_$TS/cache
+
+echo "Backup complete: ~/nvim_backups/backup_$TS"

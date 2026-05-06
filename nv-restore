@@ -1,0 +1,31 @@
+#!/bin/bash
+
+BACKUP_DIR="$HOME/nvim_backups"
+
+# 1. Use fzf to pick the backup folder
+# We use a preview window to show the contents of the 'config' subfolder
+SELECTED_BACKUP=$(ls -1 "$BACKUP_DIR" | fzf \
+    --prompt="Select Backup to Restore > " \
+    --preview "ls -R $BACKUP_DIR/{}/config | head -20" \
+    --height=40% --border)
+
+# Exit if nothing was selected
+[ -z "$SELECTED_BACKUP" ] && echo "No backup selected. Exiting." && exit 0
+
+FULL_PATH="$BACKUP_DIR/$SELECTED_BACKUP"
+
+echo "Restoring from: $SELECTED_BACKUP..."
+
+# 2. Safety: Move current broken config to a "pre-restore" temp spot
+# Just in case you change your mind mid-restore
+mkdir -p "$BACKUP_DIR/pre_restore_safety"
+[ -d ~/.config/nvim ] && mv ~/.config/nvim "$BACKUP_DIR/pre_restore_safety/config"
+[ -d ~/.local/share/nvim ] && mv ~/.local/share/nvim "$BACKUP_DIR/pre_restore_safety/share"
+[ -d ~/.local/state/nvim ] && mv ~/.local/state/nvim "$BACKUP_DIR/pre_restore_safety/state"
+
+# 3. Copy the backup back to live locations
+cp -rf "$FULL_PATH/config" ~/.config/nvim
+cp -rf "$FULL_PATH/share" ~/.local/share/nvim
+cp -rf "$FULL_PATH/state" ~/.local/state/nvim
+
+echo "✅ Restore complete. Neovim is back to $SELECTED_BACKUP state."
