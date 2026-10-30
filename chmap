@@ -11,7 +11,7 @@ function run {
 # Function to generate the content for the 'langage.conf' file
 use() {
     local map=$1
-    echo "source = ~/.config/hypr/lang-$map.conf"
+    echo "require(\"lang-$map\")"
     run "$HOME/.scripts/$map.sh"
     notify-send $map
 }
@@ -20,7 +20,7 @@ use() {
 set_KEYMAP() {
 
     local map=$1
-    local config_path="$HOME/.config/hypr/langage.conf"
+    local config_path="$HOME/.config/hypr/language.lua"
     local keymap_file="$HOME/.scripts/KEYMAP"
 
     # Write the new keyboard layout to the config file
